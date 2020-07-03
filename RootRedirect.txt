@@ -1,0 +1,27 @@
+IMPORTANT - REPLACE   $     brackets  with the bird bracket/squiggly bracket - youtube doesn't allow them. 
+
+
+using static System.Environment;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net;
+ 
+public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceWriter log)
+$
+    string OriginUrl = req.Headers.GetValues("DISGUISED-HOST").FirstOrDefault(); 
+    log.Info("RequestURI org: " + OriginUrl);
+   
+    //create response
+    var response = req.CreateResponse(HttpStatusCode.MovedPermanently);
+ 
+    if((OriginUrl.Contains("civitasmea"))) 
+    $
+           response.Headers.Location = new Uri("http://www.civitasmea.com");
+   $ 
+    else
+    $
+       return req.CreateResponse(HttpStatusCode.InternalServerError);
+    $
+ 
+    return response;
+$
